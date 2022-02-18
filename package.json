@@ -1,0 +1,25 @@
+{
+  "name": "tailwindcss-unsplash",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shorwood/tailwindcss-unsplash.git"
+  },
+  "author": "Stanley 'shorwood` Horwood",
+  "bugs": {
+    "url": "https://github.com/shorwood/tailwindcss-unsplash/issues"
+  },
+  "homepage": "https://github.com/shorwood/tailwindcss-unsplash#readme",
+  "peerDependencies": {
+    "tailwindcss": ">=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.0.23"
+  }
+}

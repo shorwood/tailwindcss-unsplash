@@ -4,7 +4,7 @@ const plugin = require('tailwindcss/plugin')
 /**
  * Get the URL of an unsplash.com image from it's id.
  * @param {string} id Image id
- * @param {numberr} w Required resolution
+ * @param {number} w Required resolution
  */
  const createUnslashUrl = (id, w) => {
   const resArg = w ? `?w=${w}` : ''

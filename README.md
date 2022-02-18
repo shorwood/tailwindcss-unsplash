@@ -1,4 +1,4 @@
-# Tailwind CSS Border Gradients
+# Tailwind CSS Unsplash Background
 
 [![Version][npm-version-shield]][npm]
 [![Downloads][npm-stats-shield]][npm]

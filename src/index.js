@@ -111,6 +111,7 @@ const unsplash = plugin(({ addDynamic, addUtilities, matchUtilities, theme }) =>
         default: null,
         xs: 480,
         sm: 720,
+        md: 1280,
         lg: 1920,
         xl: 3840,
         '2xl': 7680,

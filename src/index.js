@@ -1,5 +1,13 @@
+const moduleExists = path => {
+  try {
+      require.resolve(path);
+      return true
+  } catch (e) { return false }
+}
 
-const plugin = require('tailwindcss/plugin')
+const plugin = moduleExists('windicss/plugin')
+  ? require('windicss/plugin')
+  : require('tailwindcss/plugin')
 
 /**
  * Get the URL of an unsplash.com image from it's id.
@@ -13,36 +21,62 @@ const plugin = require('tailwindcss/plugin')
     : `https://images.unsplash.com/photo-${id}${resArg}`
 }
 
-const unsplash = plugin(
-  function ({ addUtilities, matchUtilities, theme, e }) {
+const unsplash = plugin(({ addDynamic, addUtilities, matchUtilities, theme }) => {
 
     // --- Get theme.
     const unsplashImages = theme('unsplashImages', {})
     const unsplashResolutions = theme('unsplashResolutions', { default: 1280 })
 
-    if (matchUtilities) {
+    // --- WindiCSS
+    if(addDynamic) {
+      addDynamic('bg-unsplash', ({ Utility, Style }) => {
 
-      // --- Add dynamic utility. (example: '.bg-unslash-[4987wa34_q/640]')
-      matchUtilities({
-        'bg-unsplash': value => {
-          const [id, w] = value.split('/').map((x) => x.trim().replaceAll(' ', '_'))
-          return { backgroundImage: `url(${createUnslashUrl(id, w)})` }
-        },
+        // --- Handle dynamic prop.
+        const url = Utility.handler
+          .handleStatic(unsplashImages)
+          .handleString(str => {
+            const [_, id, w] = str.split('-')
+            return createUnslashUrl(id, unsplashResolutions[w] ?? w)
+          })
+          .value
+        if (!url) return
+        return Style.generate(Utility.class, { backgroundImage: `url(${url})` })
+      }, {
+        layer: 'components',
+        group: 'backgroundImage',
+        completions: [
+          ...Object.keys(unsplashImages).map(i => `bg-unsplash-${i}`),
+          'bg-unsplash-{string}',
+          'bg-unsplash-{string}-{number}',
+        ],
       })
+    }
 
-      // --- Add semi-dynamic utilities. (example: '.bg-unslash-foobar-[640]').
-      for (const imageKey in unsplashImages) {
+    // --- TailwindCSS
+    else if(matchUtilities) {
 
-        // --- Get theme value.
-        const id = unsplashImages[imageKey]
-
-        // --- Add static utility
+        // --- Add dynamic utility. (example: '.bg-unslash-[4987wa34_q/640]')
         matchUtilities({
-          [`bg-unsplash-${imageKey}`]: value => {
-            return { backgroundImage: `url(${createUnslashUrl(id, value)})` }
+          'bg-unsplash': value => {
+            const [id, w] = value.split('/').map((x) => x.trim().replaceAll(' ', '_'))
+            const url = createUnslashUrl(id, unsplashResolutions[w] ?? w)
+            return { backgroundImage: `url(${url})` }
           },
         })
-      }
+
+        // --- Add semi-dynamic utilities. (example: '.bg-unslash-foobar-[640]').
+        for (const imageKey in unsplashImages) {
+
+          // --- Get theme value.
+          const id = unsplashImages[imageKey]
+
+          // --- Add static utility
+          matchUtilities({
+            [`bg-unsplash-${imageKey}`]: value => {
+              return { backgroundImage: `url(${createUnslashUrl(id, value)})` }
+            },
+          })
+        }
     }
 
     // --- Add static utilities.
@@ -61,7 +95,6 @@ const unsplash = plugin(
         })
       }
     }
-
   },
 
   // --- Define default theme.

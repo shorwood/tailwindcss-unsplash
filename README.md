@@ -8,15 +8,30 @@
 
 TailwindCSS / WindiCSS plugin to easily apply background from unsplash.com into your CSS.
 
+Tailwind CSS:
 ```html
-<!-- Fully dynamic -->
+<!-- Using dynamic images -->
 <div class="bg-unsplash-[YMi66afAE3I]" />
+<div class="bg-unsplash-[YMi66afAE3I/lg]" />
 <div class="bg-unsplash-[YMi66afAE3I/1920]" />
+
+<!-- Using static images --> 
+<div class="bg-unsplash-yosemite" />
+<div class="bg-unsplash-yosemite-lg" />
+<div class="bg-unsplash-yosemite-[1920]" />
+```
+
+Windi CSS:
+```html
+<!-- Dynamic with TailwindCSS -->
+<div class="bg-unsplash-YMi66afAE3I" />
+<div class="bg-unsplash-YMi66afAE3I-lg" />
+<div class="bg-unsplash-YMi66afAE3I-1920" />
 
 <!-- Image from theme --> 
 <div class="bg-unsplash-yosemite" />
 <div class="bg-unsplash-yosemite-lg" />
-<div class="bg-unsplash-yosemite-[1920]" />
+<div class="bg-unsplash-yosemite-1920" />
 ```
 
 You can extract the ID like so:

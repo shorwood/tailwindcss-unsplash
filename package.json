@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-unsplash",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "",
   "main": "src/index.js",
   "license": "MIT",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/shorwood/tailwindcss-unsplash#readme",
   "devDependencies": {
-    "tailwindcss": "^3.0.23"
+    "tailwindcss": "^3.0.23",
+    "windicss": "^3.4.3"
   }
 }
